@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robingolart - Verificação de Membro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030303;
+            --bg-card: rgba(13, 13, 13, 0.98);
+            --primary-blue: #007bff;
+            --glow-blue: rgba(0, 123, 255, 0.5);
+            --yt-red: #ff0000;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            user-select: none;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a1a2f 0%, #030303 70%);
+            z-index: -1; top: 0; left: 0;
+        }
+
+        .main-container {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .channel-name {
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+
+        .yt-icon { color: var(--yt-red); font-size: 30px; }
+
+        .progress-container {
+            width: 100%; height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            margin: 30px 0;
+        }
+
+        #progress-bar {
+            height: 100%; background: var(--primary-blue);
+            width: 33.3%; border-radius: 2px;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        .step-box { display: none; }
+        .step-box.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-action-yt {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: white; border: none; padding: 16px; width: 100%;
+            border-radius: 10px; font-weight: 700; cursor: pointer;
+            margin-bottom: 15px; text-decoration: none; display: flex;
+            align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .btn-verify {
+            background: transparent; color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.1); padding: 14px;
+            width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600;
+        }
+
+        .btn-verify:not(:disabled) {
+            background: var(--primary-blue); color: white;
+            border-color: var(--primary-blue); box-shadow: 0 4px 12px var(--glow-blue);
+        }
+
+        .btn-final {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #fff; border: none; padding: 18px; font-size: 16px;
+            font-weight: 700; border-radius: 10px; cursor: pointer; width: 100%;
+        }
+
+        .status-text { font-size: 12px; color: #f59e0b; margin-top: 8px; height: 15px; }
+
+        footer { margin-top: auto; padding: 30px 20px; text-align: center; }
+        .footer-links { font-size: 11px; margin-top: 10px; }
+        .footer-links a { color: #555; text-decoration: none; margin: 0 8px; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="main-container">
+    <div class="channel-name">
+        <svg class="yt-icon" fill="currentColor" viewBox="0 0 576 512" height="1em" width="1em"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.781 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg>
+        Robingolart
+    </div>
+    <div style="color: var(--text-muted); font-size: 14px;">Verificação de Segurança</div>
+
+    <div class="progress-container"><div id="progress-bar"></div></div>
+
+    <div id="step1" class="step-box active">
+        <h3 style="margin-bottom: 10px;">Passo 1</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Inscreva-se no canal para desbloquear o acesso.</p>
+        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw?sub_confirmation=1" target="_blank" class="btn-action-yt" onclick="startTimer(1)">
+            INSCREVER-SE NO CANAL
+        </a>
+        <button id="next1" class="btn-verify" disabled onclick="nextStep(2)">CONFIRMAR INSCRIÇÃO</button>
+        <div id="status1" class="status-text"></div>
+    </div>
+
+    <div id="step2" class="step-box">
+        <h3 style="margin-bottom: 10px;">Passo 2</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Deixe um comentário no vídeo para validar seu acesso.</p>
+        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw/videos" target="_blank" class="btn-action-yt" onclick="startTimer(2)">
+            COMENTAR NO VÍDEO
+        </a>
+        <button id="next2" class="btn-verify" disabled onclick="nextStep(3)">CONFIRMAR COMENTÁRIO</button>
+        <div id="status2" class="status-text"></div>
+    </div>
+
+    <div id="step3" class="step-box">
+        <h3 style="color: #28a745; margin-bottom: 10px;">Sucesso!</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Verificação concluída. Sua recompensa está disponível.</p>
+        <button class="btn-final" onclick="liberar()">RESGATAR AGORA</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a>
+    </div>
+</footer>
+
+<script>
+    // COLOQUE SEU LINK FINAL AQUI (em Base64 se quiser esconder)
+    const LINK_FINAL = "https://SEU-LINK-AQUI.com";
+
+    function startTimer(step) {
+        let timeLeft = 10;
+        const btn = document.getElementById('next' + step);
+        const status = document.getElementById('status' + step);
+        btn.innerText = "VERIFICANDO...";
+        
+        const counter = setInterval(() => {
+            timeLeft--;
+            status.innerText = `Aguarde ${timeLeft}s para validar...`;
+            if (timeLeft <= 0) {
+                clearInterval(counter);
+                status.innerText = "Ação verificada com sucesso!";
+                btn.disabled = false;
+                btn.innerText = "CONTINUAR";
+            }
+        }, 1000);
+    }
+
+    function nextStep(step) {
+        document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + step).classList.add('active');
+        document.getElementById('progress-bar').style.width = (step === 2 ? 66.6 : 100) + "%";
+    }
+
+    function liberar() {
+        window.location.href = LINK_FINAL;
+    }
+
+    // Bloqueia F12
+    document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
+</script>
+
+</body>
+</html>
