@@ -3,72 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robingolart - Verificação</title>
+    <title>Robingolart | Safe Verification</title>
     <style>
-        body { background: #050505; color: #eee; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .box { background: #111; border: 1px solid #222; border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 4px solid #007bff; }
-        .btn-passo { background: #1a1a1a; color: white; border: 1px solid #333; padding: 15px; border-radius: 10px; width: 100%; margin-bottom: 15px; cursor: pointer; font-weight: bold; }
-        .btn-passo.check { border-color: #28a745; color: #28a745; }
-        .barra-fundo { background:#1a1a1a; height:8px; border-radius:10px; margin:10px 0; display:none; overflow:hidden; }
-        .barra-progresso { background:#007bff; width:0%; height:100%; transition:0.3s; }
-        .btn-final { background: #28a745; color: white; border: none; padding: 18px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; display: none; margin-top: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+        
+        :root { --primary: #00d2ff; --secondary: #9d50bb; --bg: #0b0b0e; --card: #15151b; }
+        
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        
+        /* Fundo Animado */
+        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1c1c2e 0%, #0b0b0e 100%); z-index: -1; }
+        
+        .container { background: var(--card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .container::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border-radius: 22px; z-index: -1; opacity: 0.3; }
+
+        h1 { font-size: 28px; letter-spacing: 2px; margin: 0 0 10px 0; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { font-size: 14px; color: #888; margin-bottom: 30px; }
+
+        .btn-step { background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; width: 100%; margin-bottom: 15px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; align-items: center; justify-content: space-between; font-size: 16px; text-transform: uppercase; }
+        .btn-step:hover:not(:disabled) { background: rgba(0, 210, 255, 0.1); border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
+        .btn-step.done { border-color: #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.05); }
+        .btn-step:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .status-area { display: none; margin-top: 20px; }
+        .bar-container { background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .bar-fill { background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 0%; height: 100%; transition: 0.4s; }
+        .log { font-size: 12px; color: #555; font-family: monospace; text-transform: uppercase; }
+
+        .btn-final { background: linear-gradient(45deg, #00ff88, #00d2ff); color: #000; border: none; padding: 20px; border-radius: 12px; width: 100%; font-weight: 900; cursor: pointer; display: none; font-size: 18px; margin-top: 10px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); text-transform: uppercase; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;">
 
-    <div class="box">
-        <h2 style="color: #007bff; margin:0 0 15px 0;">🛡️ Robingolart Safe</h2>
-        
-        <button id="s1" class="btn-passo" onclick="fazer(1, 'https://www.youtube.com/@Robingolart?sub_confirmation=1')">
-            1. SE INSCREVER NO CANAL
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <h1>ROBINGOLART</h1>
+        <p>CENTRAL DE VERIFICAÇÃO SEGURA</p>
+
+        <button id="s1" class="btn-step" onclick="handle(1, 'https://www.youtube.com/@Robingolart?sub_confirmation=1')">
+            01. INSCREVER NO CANAL <span>▶</span>
         </button>
 
-        <button id="s2" class="btn-passo" onclick="fazer(2, 'https://youtu.be/Yrkjy16b6ok')" disabled>
-            2. COMENTAR NO VÍDEO
+        <button id="s2" class="btn-step" onclick="handle(2, 'https://youtu.be/Yrkjy16b6ok')" disabled>
+            02. COMENTAR NO VÍDEO <span>💬</span>
         </button>
 
-        <div id="area-carregando" class="barra-fundo"><div id="p" class="barra-progresso"></div></div>
-        <div id="texto-log" style="font-size:11px; color:#555"></div>
+        <div class="status-area" id="loader">
+            <div class="log" id="log">Protocolo de segurança iniciado...</div>
+            <div class="bar-container">
+                <div class="bar-fill" id="progress"></div>
+            </div>
+        </div>
 
-        <button id="btn-fim" class="btn-final" onclick="ir()">BAIXAR DELTA EXECUTOR</button>
+        <button id="final" class="btn-final" onclick="finish()">DESBLOQUEAR DOWNLOAD</button>
     </div>
 
     <script>
-        // ÚNICO LUGAR PARA O LINK DO ENCURTANET:
-        const LINK_DINHEIRO = "https://seulink.digital/qKVRxxcSfI";
+        // CONFIGURAÇÃO - COLOQUE SEU LINK DO ENCURTANET ABAIXO
+        const _DEST = "https://seulink.digital/qKVRxxcSfI";
 
-        let c1 = false; let c2 = false;
-        function fazer(n, u) {
+        let st1 = false; let st2 = false;
+
+        function handle(n, u) {
             window.open(u, '_blank');
             if(n === 1) {
-                document.getElementById('s1').classList.add('check');
-                document.getElementById('s1').innerHTML = "1. CONCLUÍDO ✅";
+                st1 = true;
+                const b = document.getElementById('s1');
+                b.classList.add('done'); b.innerHTML = "01. CANAL VALIDADO ✓";
                 document.getElementById('s2').disabled = false;
-                c1 = true;
             } else {
-                document.getElementById('s2').classList.add('check');
-                document.getElementById('s2').innerHTML = "2. CONCLUÍDO ✅";
-                c2 = true;
-                if(c1 && c2) carregar();
+                st2 = true;
+                const b = document.getElementById('s2');
+                b.classList.add('done'); b.innerHTML = "02. VÍDEO VALIDADO ✓";
+                if(st1 && st2) startSecurity();
             }
         }
 
-        function carregar() {
-            document.getElementById('area-carregando').style.display = 'block';
-            let v = 0;
+        function startSecurity() {
+            document.getElementById('s1').style.display = 'none';
+            document.getElementById('s2').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            
+            let p = 0;
+            const log = document.getElementById('log');
+            const bar = document.getElementById('progress');
+            
+            const steps = [
+                "Buscando arquivos no servidor...",
+                "Criptografando túnel SSL...",
+                "Bypass Anti-Bot concluído...",
+                "Gerando token de acesso..."
+            ];
+
             const t = setInterval(() => {
-                v += 2;
-                document.getElementById('p').style.width = v + "%";
-                document.getElementById('texto-log').innerText = "Segurança: " + v + "%";
-                if(v >= 100) {
+                p += 1;
+                bar.style.width = p + "%";
+                if(p == 20) log.innerText = steps[0];
+                if(p == 45) log.innerText = steps[1];
+                if(p == 70) log.innerText = steps[2];
+                if(p == 90) log.innerText = steps[3];
+                
+                if(p >= 100) {
                     clearInterval(t);
-                    document.getElementById('btn-fim').style.display = 'block';
-                    document.getElementById('texto-log').innerText = "Acesso Liberado!";
+                    log.innerText = "ACESSO PERMITIDO!";
+                    log.style.color = "#00ff88";
+                    document.getElementById('final').style.display = 'block';
                 }
-            }, 50);
+            }, 60);
         }
 
-        function ir() { window.location.href = LINK_DINHEIRO; }
+        function finish() { window.location.href = _DEST; }
     </script>
 </body>
 </html>
