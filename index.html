@@ -139,7 +139,68 @@
     }
 
     function liberar() { window.location.href = LINK_FINAL; }
-</script>
+</script><script>
+        let etapa1 = false;
+        let etapa2 = false;
+        // COLOQUE SEU LINK DO ENCURTANET AQUI:
+        const LINK_MONETIZADO = "COLE_AQUI_SEU_LINK_DO_ENCURTANET";
+
+        function acao(tipo, url) {
+            // Abre o link (YouTube ou Comentário)
+            window.open(url, '_blank');
+
+            // LIBERA NA HORA OU APÓS 2 SEGUNDOS
+            setTimeout(() => {
+                if(tipo === 'inscrever') {
+                    etapa1 = true;
+                    const btn1 = document.getElementById('btn-inscrever');
+                    btn1.classList.add('done');
+                    btn1.innerHTML = "1. INSCRITO ✅";
+                    btn1.onclick = null; // Desativa o clique para não bugar
+                } else {
+                    etapa2 = true;
+                    const btn2 = document.getElementById('btn-comentar');
+                    btn2.classList.add('done');
+                    btn2.innerHTML = "2. COMENTADO ✅";
+                    btn2.onclick = null;
+                }
+
+                // Se as duas primeiras etapas manuais foram clicadas, inicia o carregamento das outras 4
+                if(etapa1 && etapa2) {
+                    iniciarCarregamento();
+                }
+            }, 1000); // 1 segundo de espera já é o suficiente
+        }
+
+        function iniciarCarregamento() {
+            document.getElementById('btn-inscrever').style.display = 'none';
+            document.getElementById('btn-comentar').style.display = 'none';
+            document.getElementById('desc').innerHTML = "<b>Verificado!</b> Executando camadas de segurança...";
+            document.getElementById('status').style.display = 'block';
+            document.getElementById('bar-container').style.display = 'block';
+
+            let progresso = 0;
+            const intervalo = setInterval(() => {
+                progresso += 2;
+                document.getElementById('progress').style.width = progresso + "%";
+                
+                if(progresso == 20) document.getElementById('status').innerHTML = "Etapa 3: Autenticando com Robingolart...";
+                if(progresso == 50) document.getElementById('status').innerHTML = "Etapa 4: Analisando Script Delta v608...";
+                if(progresso == 80) document.getElementById('status').innerHTML = "Etapa 5: Protegendo Link contra Bots...";
+                if(progresso == 98) document.getElementById('status').innerHTML = "Etapa 6: Tudo pronto!";
+
+                if (progresso >= 100) {
+                    clearInterval(intervalo);
+                    document.getElementById('status').style.color = "#28a745";
+                    document.getElementById('btn-resgatar').style.display = 'block';
+                }
+            }, 80); 
+        }
+
+        function finalizar() {
+            window.location.href =https://seulink.digital/qKVRxxcSfI;
+        }
+    </script>
 
 </body>
 </html>
