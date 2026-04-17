@@ -10,13 +10,9 @@
             --bg-deep: #030303;
             --bg-card: rgba(13, 13, 13, 0.98);
             --primary-blue: #007bff;
-            --glow-blue: rgba(0, 123, 255, 0.5);
-            --yt-red: #ff0000;
             --text-main: #ffffff;
             --text-muted: #888888;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg-deep);
@@ -25,17 +21,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            margin: 0;
             padding: 20px;
-            user-select: none;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a1a2f 0%, #030303 70%);
-            z-index: -1; top: 0; left: 0;
         }
 
         .main-container {
@@ -46,135 +33,97 @@
             width: 100%;
             max-width: 420px;
             text-align: center;
-            backdrop-filter: blur(10px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin-top: 60px;
-            position: relative;
+            margin-top: 40px;
         }
 
-        .channel-name {
-            font-size: 26px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 5px;
-        }
-
-        .yt-icon { color: var(--yt-red); font-size: 30px; }
-
-        .progress-container {
-            width: 100%; height: 4px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 2px;
-            margin: 30px 0;
-        }
-
-        #progress-bar {
-            height: 100%; background: var(--primary-blue);
-            width: 33.3%; border-radius: 2px;
-            transition: width 0.6s ease;
-            box-shadow: 0 0 10px var(--glow-blue);
-        }
-
+        /* Estilos dos Botões e Progresso (Mantidos) */
+        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.05); margin: 30px 0; }
+        #progress-bar { height: 100%; background: var(--primary-blue); width: 33.3%; transition: 0.6s ease; }
         .step-box { display: none; }
-        .step-box.active { display: block; animation: fadeIn 0.5s; }
+        .step-box.active { display: block; }
+        .btn-action-yt { background: #ff0000; color: white; padding: 16px; width: 100%; border-radius: 10px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
+        .btn-verify { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; }
+        .btn-verify:not(:disabled) { background: var(--primary-blue); color: white; }
+        .btn-final { background: #d97706; color: #fff; border: none; padding: 18px; font-weight: 700; border-radius: 10px; cursor: pointer; width: 100%; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .btn-action-yt {
-            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-            color: white; border: none; padding: 16px; width: 100%;
-            border-radius: 10px; font-weight: 700; cursor: pointer;
-            margin-bottom: 15px; text-decoration: none; display: flex;
-            align-items: center; justify-content: center; gap: 10px;
+        /* SEÇÃO DE CONTEÚDO PARA ADSENSE */
+        .content-section {
+            max-width: 800px;
+            margin-top: 60px;
+            text-align: left;
+            line-height: 1.8;
+            color: #ccc;
+            background: #0a0a0a;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #111;
         }
+        .content-section h2 { color: var(--primary-blue); margin-top: 20px; }
+        .content-section p { margin-bottom: 15px; font-size: 15px; }
 
-        .btn-verify {
-            background: transparent; color: var(--text-muted);
-            border: 1px solid rgba(255,255,255,0.1); padding: 14px;
-            width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600;
-        }
-
-        .btn-verify:not(:disabled) {
-            background: var(--primary-blue); color: white;
-            border-color: var(--primary-blue); box-shadow: 0 4px 12px var(--glow-blue);
-        }
-
-        .btn-final {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #fff; border: none; padding: 18px; font-size: 16px;
-            font-weight: 700; border-radius: 10px; cursor: pointer; width: 100%;
-        }
-
-        .status-text { font-size: 12px; color: #f59e0b; margin-top: 8px; height: 15px; }
-
-        footer { margin-top: auto; padding: 30px 20px; text-align: center; }
-        .footer-links { font-size: 11px; margin-top: 10px; }
-        .footer-links a { color: #555; text-decoration: none; margin: 0 8px; }
+        footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; }
+        footer a { color: var(--primary-blue); text-decoration: none; margin: 0 10px; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
 <div class="main-container">
-    <div class="channel-name">
-        <svg class="yt-icon" fill="currentColor" viewBox="0 0 576 512" height="1em" width="1em"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.781 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg>
-        Robingolart
-    </div>
-    <div style="color: var(--text-muted); font-size: 14px;">Verificação de Segurança</div>
-
+    <h1 style="font-size: 22px;">Robingolart</h1>
     <div class="progress-container"><div id="progress-bar"></div></div>
 
     <div id="step1" class="step-box active">
-        <h3 style="margin-bottom: 10px;">Passo 1</h3>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Inscreva-se no canal para desbloquear o acesso.</p>
-        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw?sub_confirmation=1" target="_blank" class="btn-action-yt" onclick="startTimer(1)">
-            INSCREVER-SE NO CANAL
-        </a>
-        <button id="next1" class="btn-verify" disabled onclick="nextStep(2)">CONFIRMAR INSCRIÇÃO</button>
-        <div id="status1" class="status-text"></div>
+        <h3>Etapa 1: Inscrição</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Valide sua participação na comunidade.</p>
+        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw?sub_confirmation=1" target="_blank" class="btn-action-yt" onclick="startTimer(1)">INSCREVER-SE</a>
+        <button id="next1" class="btn-verify" disabled onclick="nextStep(2)">CONFIRMAR</button>
     </div>
 
     <div id="step2" class="step-box">
-        <h3 style="margin-bottom: 10px;">Passo 2</h3>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Deixe um comentário no vídeo para validar seu acesso.</p>
-        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw/videos" target="_blank" class="btn-action-yt" onclick="startTimer(2)">
-            COMENTAR NO VÍDEO
-        </a>
-        <button id="next2" class="btn-verify" disabled onclick="nextStep(3)">CONFIRMAR COMENTÁRIO</button>
-        <div id="status2" class="status-text"></div>
+        <h3>Etapa 2: Comentário</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Deixe um feedback no vídeo mais recente.</p>
+        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw/videos" target="_blank" class="btn-action-yt" onclick="startTimer(2)">COMENTAR NO VÍDEO</a>
+        <button id="next2" class="btn-verify" disabled onclick="nextStep(3)">CONFIRMAR</button>
     </div>
 
     <div id="step3" class="step-box">
-        <h3 style="color: #28a745; margin-bottom: 10px;">Sucesso!</h3>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Verificação concluída. Sua recompensa está disponível.</p>
-        <button class="btn-final" onclick="liberar()">RESGATAR AGORA</button>
+        <h3 style="color: #28a745;">Liberado!</h3>
+        <button class="btn-final" onclick="liberar()">PEGAR RECOMPENSA</button>
     </div>
 </div>
 
+<div class="content-section">
+    <h2>Bem-vindo à Comunidade Robingolart</h2>
+    <p>O canal <strong>Robingolart</strong> nasceu com o objetivo de criar uma experiência única para jogadores e entusiastas de tecnologia. Aqui, focamos em trazer conteúdos de alta qualidade, explorando mecânicas de jogos, scripts e otimizações que ajudam a melhorar o desempenho e a diversão da nossa audiência. Este portal de verificação foi desenvolvido para garantir que nossos materiais exclusivos cheguem apenas aos membros ativos da nossa comunidade.</p>
+    
+    <h2>Por que participar da nossa comunidade?</h2>
+    <p>A Robingolart não é apenas um canal de vídeos, mas um ecossistema de aprendizado e entretenimento. Ao se inscrever, você terá acesso a tutoriais detalhados sobre desenvolvimento de jogos, configurações de performance para dispositivos móveis e análises profundas de gameplay. Valorizamos cada inscrito e buscamos sempre entregar recompensas que agreguem valor real à sua jornada como gamer ou desenvolvedor.</p>
+    
+    <h2>Nossa Missão e Segurança Digital</h2>
+    <p>Seguimos rigorosamente as diretrizes de transparência do Google. Este processo de verificação em duas etapas serve para proteger nossos links de acessos automatizados (bots), garantindo uma navegação segura para todos os usuários reais. O Robingolart está comprometido com a proteção de dados e a ética digital, oferecendo sempre um ambiente seguro e livre de ameaças para seus seguidores.</p>
+    
+    <h2>Conteúdos Exclusivos e Futuro</h2>
+    <p>Estamos constantemente expandindo nossa biblioteca de conteúdos. No futuro próximo, o canal Robingolart planeja lançar séries exclusivas sobre criação de sites profissionais, como este que você está navegando agora, além de dicas avançadas para otimização de sistemas operacionais. Ficar conectado conosco através da inscrição e das notificações é a melhor maneira de não perder nenhuma novidade importante que pode transformar a sua maneira de interagir com o mundo digital.</p>
+    
+    <h2>Compromisso com a Qualidade</h2>
+    <p>Cada vídeo postado no canal Robingolart passa por um rigoroso processo de edição e pesquisa. Entendemos que o seu tempo é precioso, por isso, nosso compromisso é entregar informações diretas, úteis e visualmente agradáveis. Agradecemos por fazer parte desta história e por nos ajudar a crescer a cada dia, tornando-se um pilar fundamental do nosso sucesso.</p>
+</div>
+
 <footer>
-    <div class="footer-links">
-        <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a>
-    </div>
+    <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a>
+    <p style="color: #444; margin-top: 15px;">© 2026 Robingolart - Todos os direitos reservados.</p>
 </footer>
 
 <script>
-    // COLOQUE SEU LINK FINAL AQUI (em Base64 se quiser esconder)
     const LINK_FINAL = "https://SEU-LINK-AQUI.com";
 
     function startTimer(step) {
         let timeLeft = 10;
         const btn = document.getElementById('next' + step);
-        const status = document.getElementById('status' + step);
-        btn.innerText = "VERIFICANDO...";
-        
         const counter = setInterval(() => {
             timeLeft--;
-            status.innerText = `Aguarde ${timeLeft}s para validar...`;
             if (timeLeft <= 0) {
                 clearInterval(counter);
-                status.innerText = "Ação verificada com sucesso!";
                 btn.disabled = false;
                 btn.innerText = "CONTINUAR";
             }
@@ -187,12 +136,7 @@
         document.getElementById('progress-bar').style.width = (step === 2 ? 66.6 : 100) + "%";
     }
 
-    function liberar() {
-        window.location.href = LINK_FINAL;
-    }
-
-    // Bloqueia F12
-    document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
+    function liberar() { window.location.href = LINK_FINAL; }
 </script>
 
 </body>
