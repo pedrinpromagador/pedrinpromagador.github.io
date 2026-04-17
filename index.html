@@ -3,105 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robingolart - Verificação Oficial</title>
+    <title>Robingolart - Verificação</title>
     <style>
-        :root { --p: #007bff; --bg: #050505; --c: #111; }
-        body { background: var(--bg); color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
-        .box { background: var(--c); border: 1px solid #222; border-radius: 20px; padding: 30px; width: 90%; max-width: 380px; text-align: center; position: relative; z-index: 2; }
-        .shield { color: var(--p); font-size: 50px; margin-bottom: 15px; }
-        .loading-ring { display: inline-block; width: 60px; height: 60px; border: 4px solid rgba(255,255,255,.1); border-radius: 50%; border-top-color: var(--p); animation: spin 1s linear infinite; margin: 20px 0; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .btn { background: var(--p); color: #fff; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,123,255,0.3); }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,123,255,0.4); }
-        .hidden { display: none; }
-        .log { font-size: 12px; color: #666; margin-top: 15px; height: 20px; font-family: monospace; }
-        .cyber-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #001a33 0%, #050505 100%); z-index: 1; opacity: 0.5; }
+        body { background: #050505; color: #eee; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .box { background: #111; border: 1px solid #222; border-radius: 20px; padding: 25px; width: 100%; max-width: 350px; text-align: center; border-top: 4px solid #007bff; }
+        .btn-passo { background: #1a1a1a; color: white; border: 1px solid #333; padding: 15px; border-radius: 10px; width: 100%; margin-bottom: 15px; cursor: pointer; font-weight: bold; }
+        .btn-passo.check { border-color: #28a745; color: #28a745; }
+        .barra-fundo { background:#1a1a1a; height:8px; border-radius:10px; margin:10px 0; display:none; overflow:hidden; }
+        .barra-progresso { background:#007bff; width:0%; height:100%; transition:0.3s; }
+        .btn-final { background: #28a745; color: white; border: none; padding: 18px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="cyber-bg"></div>
-
-    <div class="box" id="main-box">
-        <div class="shield">🛡️</div>
-        <h2 id="title">Verificação Robingolart</h2>
-        <p id="msg" style="font-size: 14px; color: #aaa;">Para liberar o <b>Delta Executor</b>, você deve provar que é um inscrito ativo.</p>
+    <div class="box">
+        <h2 style="color: #007bff; margin:0 0 15px 0;">🛡️ Robingolart Safe</h2>
         
-        <div id="step-area">
-            <button class="btn" onclick="startFlow()">VERIFICAR AGORA</button>
-        </div>
+        <button id="s1" class="btn-passo" onclick="fazer(1, 'https://www.youtube.com/@Robingolart?sub_confirmation=1')">
+            1. SE INSCREVER NO CANAL
+        </button>
 
-        <div id="loader-area" class="hidden">
-            <div class="loading-ring"></div>
-            <div class="log" id="log-text">Iniciando protocolos...</div>
-        </div>
+        <button id="s2" class="btn-passo" onclick="fazer(2, 'https://youtu.be/Yrkjy16b6ok')" disabled>
+            2. COMENTAR NO VÍDEO
+        </button>
 
-        <button id="final-btn" class="btn hidden" onclick="redirect()">BAIXAR DELTA EXECUTOR</button>
+        <div id="area-carregando" class="barra-fundo"><div id="p" class="barra-progresso"></div></div>
+        <div id="texto-log" style="font-size:11px; color:#555"></div>
+
+        <button id="btn-fim" class="btn-final" onclick="ir()">BAIXAR DELTA EXECUTOR</button>
     </div>
 
     <script>
-        // SEGURANÇA: Link ofuscado para invasores não copiarem fácil
-        const _0x4f22 = ["https://www.youtube.com/@Robingolart?sub_confirmation=1", https://youtu.be/Yrkjy16b6ok, https://seulink.digital/qKVRxxcSfI];
-        
-        let state = 0;
+        // ÚNICO LUGAR PARA O LINK DO ENCURTANET:
+        const LINK_DINHEIRO = "https://seulink.digital/qKVRxxcSfI";
 
-        function startFlow() {
-            // Etapa 1: Inscrição
-            window.open(_0x4f22[0], '_blank');
-            updateUI("Etapa 1/6: Validando Inscrição...");
-            
-            setTimeout(() => {
-                // Etapa 2: Comentário
-                window.open(_0x4f22[1], '_blank');
-                updateUI("Etapa 2/6: Validando Engajamento...");
-                
-                setTimeout(() => {
-                    runCyberSecurity();
-                }, 2000);
-            }, 3000);
+        let c1 = false; let c2 = false;
+        function fazer(n, u) {
+            window.open(u, '_blank');
+            if(n === 1) {
+                document.getElementById('s1').classList.add('check');
+                document.getElementById('s1').innerHTML = "1. CONCLUÍDO ✅";
+                document.getElementById('s2').disabled = false;
+                c1 = true;
+            } else {
+                document.getElementById('s2').classList.add('check');
+                document.getElementById('s2').innerHTML = "2. CONCLUÍDO ✅";
+                c2 = true;
+                if(c1 && c2) carregar();
+            }
         }
 
-        function updateUI(text) {
-            document.getElementById('step-area').classList.add('hidden');
-            document.getElementById('loader-area').classList.remove('hidden');
-            document.getElementById('log-text').innerText = text;
-        }
-
-        function runCyberSecurity() {
-            let p = 3;
-            const logs = [
-                "Etapa 3/6: Criptografando conexão...",
-                "Etapa 4/6: Verificando integridade do Delta...",
-                "Etapa 5/6: Bypass de firewall concluído...",
-                "Etapa 6/6: Link seguro gerado!"
-            ];
-            
-            let i = 0;
-            const interval = setInterval(() => {
-                document.getElementById('log-text').innerText = logs[i];
-                i++;
-                if(i >= logs.length) {
-                    clearInterval(interval);
-                    showFinal();
+        function carregar() {
+            document.getElementById('area-carregando').style.display = 'block';
+            let v = 0;
+            const t = setInterval(() => {
+                v += 2;
+                document.getElementById('p').style.width = v + "%";
+                document.getElementById('texto-log').innerText = "Segurança: " + v + "%";
+                if(v >= 100) {
+                    clearInterval(t);
+                    document.getElementById('btn-fim').style.display = 'block';
+                    document.getElementById('texto-log').innerText = "Acesso Liberado!";
                 }
-            }, 2500);
+            }, 50);
         }
 
-        function showFinal() {
-            document.getElementById('loader-area').classList.add('hidden');
-            document.getElementById('title').innerText = "Acesso Liberado!";
-            document.getElementById('msg').innerText = "Verificação concluída com sucesso. O download está pronto.";
-            document.getElementById('final-btn').classList.remove('hidden');
-        }
-
-        function redirect() {
-            // Redireciona para o encurtador que você configurou
-            window.location.href = _0x4f22[2];
-        }
-
-        // Proteção extra: Bloqueia F12 e clique direito para evitar cópia do código
-        document.oncontextmenu = () => false;
-        document.onkeydown = e => { if(e.keyCode == 123) return false; };
+        function ir() { window.location.href = LINK_DINHEIRO; }
     </script>
 </body>
 </html>
