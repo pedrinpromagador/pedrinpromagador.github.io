@@ -5,62 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robingolart | Safe Verification</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap');
         
-        :root { --primary: #00d2ff; --secondary: #9d50bb; --bg: #0b0b0e; --card: #15151b; }
+        :root {
+            --primary: #ff0000; /* Vermelho principal */
+            --bg: #050000;      /* Fundo preto quase puro */
+            --card: #0a0000;    /* Card levemente avermelhado */
+        }
         
-        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
-        
-        /* Fundo Animado */
-        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1c1c2e 0%, #0b0b0e 100%); z-index: -1; }
-        
-        .container { background: var(--card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 40px; width: 90%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .container::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border-radius: 22px; z-index: -1; opacity: 0.3; }
+        body {
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
 
-        h1 { font-size: 28px; letter-spacing: 2px; margin: 0 0 10px 0; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 14px; color: #888; margin-bottom: 30px; }
+        /* Animação de Aura Vermelha no Fundo */
+        .aura {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            animation: pulseAura 4s infinite alternate;
+        }
 
-        .btn-step { background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; width: 100%; margin-bottom: 15px; cursor: pointer; font-weight: 700; transition: all 0.3s; display: flex; align-items: center; justify-content: space-between; font-size: 16px; text-transform: uppercase; }
-        .btn-step:hover:not(:disabled) { background: rgba(0, 210, 255, 0.1); border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
-        .btn-step.done { border-color: #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.05); }
-        .btn-step:disabled { opacity: 0.4; cursor: not-allowed; }
+        @keyframes pulseAura {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        }
 
-        .status-area { display: none; margin-top: 20px; }
-        .bar-container { background: rgba(255,255,255,0.05); height: 8px; border-radius: 10px; overflow: hidden; margin: 15px 0; border: 1px solid rgba(255,255,255,0.1); }
-        .bar-fill { background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 0%; height: 100%; transition: 0.4s; }
-        .log { font-size: 12px; color: #555; font-family: monospace; text-transform: uppercase; }
+        .container {
+            background: var(--card);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
 
-        .btn-final { background: linear-gradient(45deg, #00ff88, #00d2ff); color: #000; border: none; padding: 20px; border-radius: 12px; width: 100%; font-weight: 900; cursor: pointer; display: none; font-size: 18px; margin-top: 10px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); text-transform: uppercase; }
+        h1 {
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin: 0 0 5px 0;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Botões de Etapa */
+        .btn-step {
+            background: rgba(255, 0, 0, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 16px;
+        }
+
+        .btn-step:hover:not(:disabled) {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-step.done {
+            border-color: #00ff00;
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .btn-step:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Área de Carregamento */
+        .status-area {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .bar-container {
+            background: rgba(255, 255, 255, 0.05);
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .bar-fill {
+            background: var(--primary);
+            width: 0%;
+            height: 100%;
+            box-shadow: 0 0 10px var(--primary);
+            transition: 0.4s;
+        }
+
+        .log {
+            font-size: 11px;
+            color: #999;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        /* BOTÃO DE DOWNLOAD VERMELHO */
+        .btn-final {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            width: 100%;
+            font-weight: 900;
+            cursor: pointer;
+            display: none;
+            font-size: 18px;
+            margin-top: 10px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            text-transform: uppercase;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
+            to { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;">
 
-    <div class="bg-glow"></div>
+    <div class="aura"></div>
 
     <div class="container">
         <h1>ROBINGOLART</h1>
-        <p>CENTRAL DE VERIFICAÇÃO SEGURA</p>
+        <p>Verification Protocol v6.08</p>
 
         <button id="s1" class="btn-step" onclick="handle(1, 'https://www.youtube.com/@Robingolart?sub_confirmation=1')">
-            01. INSCREVER NO CANAL <span>▶</span>
+            01. INSCREVER-SE <span>▶</span>
         </button>
 
         <button id="s2" class="btn-step" onclick="handle(2, 'https://youtu.be/Yrkjy16b6ok')" disabled>
-            02. COMENTAR NO VÍDEO <span>💬</span>
+            02. COMENTAR <span>💬</span>
         </button>
 
         <div class="status-area" id="loader">
-            <div class="log" id="log">Protocolo de segurança iniciado...</div>
+            <div class="log" id="log">Iniciando bypass de segurança...</div>
             <div class="bar-container">
                 <div class="bar-fill" id="progress"></div>
             </div>
         </div>
 
-        <button id="final" class="btn-final" onclick="finish()">DESBLOQUEAR DOWNLOAD</button>
+        <button id="final" class="btn-final" onclick="finish()">BAIXAR DELTA EXECUTOR</button>
     </div>
 
     <script>
-        // CONFIGURAÇÃO - COLOQUE SEU LINK DO ENCURTANET ABAIXO
+        // CONFIGURAÇÃO DOS LINKS
         const _DEST = "https://seulink.digital/qKVRxxcSfI";
 
         let st1 = false; let st2 = false;
@@ -70,12 +196,12 @@
             if(n === 1) {
                 st1 = true;
                 const b = document.getElementById('s1');
-                b.classList.add('done'); b.innerHTML = "01. CANAL VALIDADO ✓";
+                b.classList.add('done'); b.innerHTML = "01. INSCRITO ✓";
                 document.getElementById('s2').disabled = false;
             } else {
                 st2 = true;
                 const b = document.getElementById('s2');
-                b.classList.add('done'); b.innerHTML = "02. VÍDEO VALIDADO ✓";
+                b.classList.add('done'); b.innerHTML = "02. COMENTADO ✓";
                 if(st1 && st2) startSecurity();
             }
         }
@@ -90,10 +216,10 @@
             const bar = document.getElementById('progress');
             
             const steps = [
-                "Buscando arquivos no servidor...",
-                "Criptografando túnel SSL...",
-                "Bypass Anti-Bot concluído...",
-                "Gerando token de acesso..."
+                "Buscando servidor seguro...",
+                "Injetando camadas de rede...",
+                "Verificando acesso Cuiabá/BR...",
+                "Link gerado com sucesso!"
             ];
 
             const t = setInterval(() => {
@@ -106,11 +232,11 @@
                 
                 if(p >= 100) {
                     clearInterval(t);
-                    log.innerText = "ACESSO PERMITIDO!";
-                    log.style.color = "#00ff88";
+                    log.innerText = "ACESSO LIBERADO!";
+                    log.style.color = "#ff0000";
                     document.getElementById('final').style.display = 'block';
                 }
-            }, 60);
+            }, 50);
         }
 
         function finish() { window.location.href = _DEST; }
