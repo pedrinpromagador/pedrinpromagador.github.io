@@ -3,204 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robingolart - Verificação de Membro</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6866217198025845"
-     crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Robingolart - Verificação Oficial</title>
     <style>
-        :root {
-            --bg-deep: #030303;
-            --bg-card: rgba(13, 13, 13, 0.98);
-            --primary-blue: #007bff;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .main-container {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin-top: 40px;
-        }
-
-        /* Estilos dos Botões e Progresso (Mantidos) */
-        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.05); margin: 30px 0; }
-        #progress-bar { height: 100%; background: var(--primary-blue); width: 33.3%; transition: 0.6s ease; }
-        .step-box { display: none; }
-        .step-box.active { display: block; }
-        .btn-action-yt { background: #ff0000; color: white; padding: 16px; width: 100%; border-radius: 10px; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
-        .btn-verify { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 14px; width: 100%; border-radius: 10px; cursor: pointer; }
-        .btn-verify:not(:disabled) { background: var(--primary-blue); color: white; }
-        .btn-final { background: #d97706; color: #fff; border: none; padding: 18px; font-weight: 700; border-radius: 10px; cursor: pointer; width: 100%; }
-
-        /* SEÇÃO DE CONTEÚDO PARA ADSENSE */
-        .content-section {
-            max-width: 800px;
-            margin-top: 60px;
-            text-align: left;
-            line-height: 1.8;
-            color: #ccc;
-            background: #0a0a0a;
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #111;
-        }
-        .content-section h2 { color: var(--primary-blue); margin-top: 20px; }
-        .content-section p { margin-bottom: 15px; font-size: 15px; }
-
-        footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; }
-        footer a { color: var(--primary-blue); text-decoration: none; margin: 0 10px; }
+        :root { --p: #007bff; --bg: #050505; --c: #111; }
+        body { background: var(--bg); color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        .box { background: var(--c); border: 1px solid #222; border-radius: 20px; padding: 30px; width: 90%; max-width: 380px; text-align: center; position: relative; z-index: 2; }
+        .shield { color: var(--p); font-size: 50px; margin-bottom: 15px; }
+        .loading-ring { display: inline-block; width: 60px; height: 60px; border: 4px solid rgba(255,255,255,.1); border-radius: 50%; border-top-color: var(--p); animation: spin 1s linear infinite; margin: 20px 0; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn { background: var(--p); color: #fff; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,123,255,0.3); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,123,255,0.4); }
+        .hidden { display: none; }
+        .log { font-size: 12px; color: #666; margin-top: 15px; height: 20px; font-family: monospace; }
+        .cyber-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #001a33 0%, #050505 100%); z-index: 1; opacity: 0.5; }
     </style>
 </head>
 <body>
 
-<div class="main-container">
-    <h1 style="font-size: 22px;">Robingolart</h1>
-    <div class="progress-container"><div id="progress-bar"></div></div>
+    <div class="cyber-bg"></div>
 
-    <div id="step1" class="step-box active">
-        <h3>Etapa 1: Inscrição</h3>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Valide sua participação na comunidade.</p>
-        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw?sub_confirmation=1" target="_blank" class="btn-action-yt" onclick="startTimer(1)">INSCREVER-SE</a>
-        <button id="next1" class="btn-verify" disabled onclick="nextStep(2)">CONFIRMAR</button>
+    <div class="box" id="main-box">
+        <div class="shield">🛡️</div>
+        <h2 id="title">Verificação Robingolart</h2>
+        <p id="msg" style="font-size: 14px; color: #aaa;">Para liberar o <b>Delta Executor</b>, você deve provar que é um inscrito ativo.</p>
+        
+        <div id="step-area">
+            <button class="btn" onclick="startFlow()">VERIFICAR AGORA</button>
+        </div>
+
+        <div id="loader-area" class="hidden">
+            <div class="loading-ring"></div>
+            <div class="log" id="log-text">Iniciando protocolos...</div>
+        </div>
+
+        <button id="final-btn" class="btn hidden" onclick="redirect()">BAIXAR DELTA EXECUTOR</button>
     </div>
 
-    <div id="step2" class="step-box">
-        <h3>Etapa 2: Comentário</h3>
-        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Deixe um feedback no vídeo mais recente.</p>
-        <a href="https://www.youtube.com/channel/UCKhRfsk9-rcf6Xd-em5ocSw/videos" target="_blank" class="btn-action-yt" onclick="startTimer(2)">COMENTAR NO VÍDEO</a>
-        <button id="next2" class="btn-verify" disabled onclick="nextStep(3)">CONFIRMAR</button>
-    </div>
+    <script>
+        // SEGURANÇA: Link ofuscado para invasores não copiarem fácil
+        const _0x4f22 = ["https://www.youtube.com/@Robingolart?sub_confirmation=1", https://youtu.be/Yrkjy16b6ok, https://seulink.digital/qKVRxxcSfI];
+        
+        let state = 0;
 
-    <div id="step3" class="step-box">
-        <h3 style="color: #28a745;">Liberado!</h3>
-        <button class="btn-final" onclick="liberar()">PEGAR RECOMPENSA</button>
-    </div>
-</div>
-
-<div class="content-section">
-    <h2>Bem-vindo à Comunidade Robingolart</h2>
-    <p>O canal <strong>Robingolart</strong> nasceu com o objetivo de criar uma experiência única para jogadores e entusiastas de tecnologia. Aqui, focamos em trazer conteúdos de alta qualidade, explorando mecânicas de jogos, scripts e otimizações que ajudam a melhorar o desempenho e a diversão da nossa audiência. Este portal de verificação foi desenvolvido para garantir que nossos materiais exclusivos cheguem apenas aos membros ativos da nossa comunidade.</p>
-    
-    <h2>Por que participar da nossa comunidade?</h2>
-    <p>A Robingolart não é apenas um canal de vídeos, mas um ecossistema de aprendizado e entretenimento. Ao se inscrever, você terá acesso a tutoriais detalhados sobre desenvolvimento de jogos, configurações de performance para dispositivos móveis e análises profundas de gameplay. Valorizamos cada inscrito e buscamos sempre entregar recompensas que agreguem valor real à sua jornada como gamer ou desenvolvedor.</p>
-    
-    <h2>Nossa Missão e Segurança Digital</h2>
-    <p>Seguimos rigorosamente as diretrizes de transparência do Google. Este processo de verificação em duas etapas serve para proteger nossos links de acessos automatizados (bots), garantindo uma navegação segura para todos os usuários reais. O Robingolart está comprometido com a proteção de dados e a ética digital, oferecendo sempre um ambiente seguro e livre de ameaças para seus seguidores.</p>
-    
-    <h2>Conteúdos Exclusivos e Futuro</h2>
-    <p>Estamos constantemente expandindo nossa biblioteca de conteúdos. No futuro próximo, o canal Robingolart planeja lançar séries exclusivas sobre criação de sites profissionais, como este que você está navegando agora, além de dicas avançadas para otimização de sistemas operacionais. Ficar conectado conosco através da inscrição e das notificações é a melhor maneira de não perder nenhuma novidade importante que pode transformar a sua maneira de interagir com o mundo digital.</p>
-    
-    <h2>Compromisso com a Qualidade</h2>
-    <p>Cada vídeo postado no canal Robingolart passa por um rigoroso processo de edição e pesquisa. Entendemos que o seu tempo é precioso, por isso, nosso compromisso é entregar informações diretas, úteis e visualmente agradáveis. Agradecemos por fazer parte desta história e por nos ajudar a crescer a cada dia, tornando-se um pilar fundamental do nosso sucesso.</p>
-</div>
-
-<footer>
-    <a href="privacidade.html">Privacidade</a> | <a href="termos.html">Termos</a>
-    <p style="color: #444; margin-top: 15px;">© 2026 Robingolart - Todos os direitos reservados.</p>
-</footer>
-
-<script>
-    const LINK_FINAL = https://seulink.digital/qKVRxxcSfI;
-
-    function startTimer(step) {
-        let timeLeft = 10;
-        const btn = document.getElementById('next' + step);
-        const counter = setInterval(() => {
-            timeLeft--;
-            if (timeLeft <= 0) {
-                clearInterval(counter);
-                btn.disabled = false;
-                btn.innerText = "CONTINUAR";
-            }
-        }, 1000);
-    }
-
-    function nextStep(step) {
-        document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + step).classList.add('active');
-        document.getElementById('progress-bar').style.width = (step === 2 ? 66.6 : 100) + "%";
-    }
-
-    function liberar() { window.location.href = LINK_FINAL; }
-</script><script>
-        let etapa1 = false;
-        let etapa2 = false;
-        // COLOQUE SEU LINK DO ENCURTANET AQUI:
-        const LINK_MONETIZADO = "COLE_AQUI_SEU_LINK_DO_ENCURTANET";
-
-        function acao(tipo, url) {
-            // Abre o link (YouTube ou Comentário)
-            window.open(url, '_blank');
-
-            // LIBERA NA HORA OU APÓS 2 SEGUNDOS
+        function startFlow() {
+            // Etapa 1: Inscrição
+            window.open(_0x4f22[0], '_blank');
+            updateUI("Etapa 1/6: Validando Inscrição...");
+            
             setTimeout(() => {
-                if(tipo === 'inscrever') {
-                    etapa1 = true;
-                    const btn1 = document.getElementById('btn-inscrever');
-                    btn1.classList.add('done');
-                    btn1.innerHTML = "1. INSCRITO ✅";
-                    btn1.onclick = null; // Desativa o clique para não bugar
-                } else {
-                    etapa2 = true;
-                    const btn2 = document.getElementById('btn-comentar');
-                    btn2.classList.add('done');
-                    btn2.innerHTML = "2. COMENTADO ✅";
-                    btn2.onclick = null;
-                }
-
-                // Se as duas primeiras etapas manuais foram clicadas, inicia o carregamento das outras 4
-                if(etapa1 && etapa2) {
-                    iniciarCarregamento();
-                }
-            }, 1000); // 1 segundo de espera já é o suficiente
-        }
-
-        function iniciarCarregamento() {
-            document.getElementById('btn-inscrever').style.display = 'none';
-            document.getElementById('btn-comentar').style.display = 'none';
-            document.getElementById('desc').innerHTML = "<b>Verificado!</b> Executando camadas de segurança...";
-            document.getElementById('status').style.display = 'block';
-            document.getElementById('bar-container').style.display = 'block';
-
-            let progresso = 0;
-            const intervalo = setInterval(() => {
-                progresso += 2;
-                document.getElementById('progress').style.width = progresso + "%";
+                // Etapa 2: Comentário
+                window.open(_0x4f22[1], '_blank');
+                updateUI("Etapa 2/6: Validando Engajamento...");
                 
-                if(progresso == 20) document.getElementById('status').innerHTML = "Etapa 3: Autenticando com Robingolart...";
-                if(progresso == 50) document.getElementById('status').innerHTML = "Etapa 4: Analisando Script Delta v608...";
-                if(progresso == 80) document.getElementById('status').innerHTML = "Etapa 5: Protegendo Link contra Bots...";
-                if(progresso == 98) document.getElementById('status').innerHTML = "Etapa 6: Tudo pronto!";
+                setTimeout(() => {
+                    runCyberSecurity();
+                }, 2000);
+            }, 3000);
+        }
 
-                if (progresso >= 100) {
-                    clearInterval(intervalo);
-                    document.getElementById('status').style.color = "#28a745";
-                    document.getElementById('btn-resgatar').style.display = 'block';
+        function updateUI(text) {
+            document.getElementById('step-area').classList.add('hidden');
+            document.getElementById('loader-area').classList.remove('hidden');
+            document.getElementById('log-text').innerText = text;
+        }
+
+        function runCyberSecurity() {
+            let p = 3;
+            const logs = [
+                "Etapa 3/6: Criptografando conexão...",
+                "Etapa 4/6: Verificando integridade do Delta...",
+                "Etapa 5/6: Bypass de firewall concluído...",
+                "Etapa 6/6: Link seguro gerado!"
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('log-text').innerText = logs[i];
+                i++;
+                if(i >= logs.length) {
+                    clearInterval(interval);
+                    showFinal();
                 }
-            }, 80); 
+            }, 2500);
         }
 
-        function finalizar() {
-            window.location.href =https://seulink.digital/qKVRxxcSfI;
+        function showFinal() {
+            document.getElementById('loader-area').classList.add('hidden');
+            document.getElementById('title').innerText = "Acesso Liberado!";
+            document.getElementById('msg').innerText = "Verificação concluída com sucesso. O download está pronto.";
+            document.getElementById('final-btn').classList.remove('hidden');
         }
+
+        function redirect() {
+            // Redireciona para o encurtador que você configurou
+            window.location.href = _0x4f22[2];
+        }
+
+        // Proteção extra: Bloqueia F12 e clique direito para evitar cópia do código
+        document.oncontextmenu = () => false;
+        document.onkeydown = e => { if(e.keyCode == 123) return false; };
     </script>
-
 </body>
 </html>
